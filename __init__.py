@@ -9,5 +9,4 @@ db = SQLAlchemy(app)
 
 app.config['SECRET_KEY'] = "this is secret"
 
-# bcrypt = Bcrypt(app)
 
