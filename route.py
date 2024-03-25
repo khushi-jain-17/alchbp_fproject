@@ -56,3 +56,17 @@ def get_user():
         return jsonify({'error': 'Invalid Token'}), 403
 
 
+@routes.route('/users/<int:page_num>',methods=['GET'])
+def user(page_num):
+    users=User.query.paginate(per_page=5,page=page_num,error_out=True)
+    output=[]
+    for u in users:
+        user_data = {
+            "uname":u.uname,
+            "email":u.email,
+            "password":u.password,
+            "role_id":u.role_id
+        }
+        output.append(user_data)
+    return jsonify({'users':output})
+
