@@ -70,3 +70,23 @@ def user(page_num):
         output.append(user_data)
     return jsonify({'users':output})
 
+
+@routes.route('/users',methods=['GET'])
+def dynamic():
+    page = request.args.get('page', 1, type=int)
+    per_page = request.args.get('per_page', 10, type=int)
+    users = User.query.paginate(page=page, per_page=per_page, error_out=True)
+    output = []
+    for u in users:
+        user_data = {
+            "uname":u.uname,
+            "email":u.email,
+            "password":u.password,
+            "role_id":u.role_id
+        }
+        output.append(user_data)
+    return jsonify({'users':output})
+
+        
+
+
